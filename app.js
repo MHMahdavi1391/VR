@@ -1,7 +1,7 @@
 const OWNER = "MHMahdavi1391";
 const REPO = "VR";
-const FILES_API = `https://api.github.com/repos/${OWNER}/${REPO}/contents/files`;
-const RAW = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/files/`;
+const FILES_API = "https://api.github.com/repos/" + OWNER + "/" + REPO + "/contents/files";
+const RAW = "https://raw.githubusercontent.com/" + OWNER + "/" + REPO + "/main/files/";
 
 const I18N = {
   en: {
@@ -15,7 +15,7 @@ const I18N = {
     s2b: "Zip files placed in the files folder of this repository appear in the download list.",
     files: "Downloads",
     hint: "Everything inside the files folder is listed here.",
-    loading: "Loading file list…",
+    loading: "Loading file list...",
     empty: "No files yet. Add zip files to the files folder in this repository.",
     error: "Could not read the files folder.",
     download: "Download",
@@ -24,36 +24,36 @@ const I18N = {
   ru: {
     title: "VR Hub",
     company: "Lumen Technologies Co.",
-    lead: "VR files and services. Choose a package from the list and download it.",
-    services: "VR services",
+    lead: "VR-faily i servisy. Vyberite paket iz spiska i skachayte ego.",
+    services: "VR-servisy",
     s1t: "LTC Quest Helper",
-    s1b: "Windows helper for Meta Quest and Android.",
-    s2t: "VR packages",
-    s2b: "Zip files from the files folder appear in the download list.",
-    files: "Downloads",
-    hint: "All files from the files folder are shown here.",
-    loading: "Loading list…",
-    empty: "No files yet. Add zip files to the files folder.",
-    error: "Could not read the files folder.",
-    download: "Download",
-    size: "Size"
+    s1b: "Pomoshchnik Windows dlya Meta Quest i Android. ADB, fayly, kopii i ustanovka.",
+    s2t: "VR-pakety",
+    s2b: "Zip-faily iz papki files etogo repozitoriya poyavlyayutsya v spiske zagruzok.",
+    files: "Zagruzki",
+    hint: "Vse fayly iz papki files pokazany zdes.",
+    loading: "Zagruzka spiska...",
+    empty: "Poka net faylov. Dobavte zip v papku files.",
+    error: "Ne udalos prochitat papku files.",
+    download: "Skachat",
+    size: "Razmer"
   },
   fa: {
-    title: "VR Hub",
+    title: "Markaz VR",
     company: "Lumen Technologies Co.",
-    lead: "VR files and services. Choose a package from the list and download it.",
-    services: "VR services",
+    lead: "File-ha va khadamat VR. Az list entekhab konid va download konid.",
+    services: "Khadamat VR",
     s1t: "LTC Quest Helper",
-    s1b: "Windows helper for Meta Quest and Android devices.",
-    s2t: "VR packages",
-    s2b: "Zip files in the files folder appear in the download list.",
-    files: "Downloads",
-    hint: "Files inside the files folder are listed here.",
-    loading: "Loading list…",
-    empty: "No files yet. Add zip files to the files folder.",
-    error: "Could not read the files folder.",
+    s1b: "Barname Windows baraye Quest va Android. ADB, file manager, backup va nasb.",
+    s2t: "Baste-haye VR",
+    s2b: "Zip-haye poshe files dar list download dide mishavand.",
+    files: "Download-ha",
+    hint: "Har file dar poshe files inja namayesh dade mishavad.",
+    loading: "Dar hale khandane list...",
+    empty: "Hanooz file nist. Zip-ha ra dar poshe files bezarid.",
+    error: "Khandane poshe files momken nashod.",
     download: "Download",
-    size: "Size"
+    size: "Hajm"
   }
 };
 
@@ -72,7 +72,7 @@ function applyLang(lang) {
   document.getElementById("t-s2-body").textContent = d.s2b;
   document.getElementById("t-files").textContent = d.files;
   document.getElementById("t-files-hint").textContent = d.hint;
-  document.querySelectorAll(".langs button").forEach((b) => {
+  document.querySelectorAll(".langs button").forEach(function(b) {
     b.classList.toggle("active", b.dataset.lang === lang);
   });
   localStorage.setItem("ltc-lang", lang);
@@ -87,20 +87,22 @@ function fmtSize(n) {
 function renderFiles(items, lang) {
   const box = document.getElementById("file-list");
   const d = t(lang);
-  const files = (items || []).filter((x) => x.type === "file" && x.name !== "README.txt" && x.name !== ".gitkeep");
+  const files = (items || []).filter(function(x) {
+    return x.type === "file" && x.name !== "README.txt" && x.name !== ".gitkeep";
+  });
   if (!files.length) {
-    box.innerHTML = `<div class="empty">${d.empty}</div>`;
+    box.innerHTML = "<div class=\"empty\">" + d.empty + "</div>";
     return;
   }
-  box.innerHTML = files.map((f) => {
+  box.innerHTML = files.map(function(f) {
     const href = f.download_url || (RAW + encodeURIComponent(f.name));
-    return `<div class="row"><div><div class="name">${f.name}</div><div class="meta">${d.size}: ${fmtSize(f.size)}</div></div><a class="dl" href="${href}" download>${d.download}</a></div>`;
+    return "<div class=\"row\"><div><div class=\"name\">" + f.name + "</div><div class=\"meta\">" + d.size + ": " + fmtSize(f.size) + "</div></div><a class=\"dl\" href=\"" + href + "\" download>" + d.download + "</a></div>";
   }).join("");
 }
 async function loadFiles() {
   const lang = localStorage.getItem("ltc-lang") || "en";
   const box = document.getElementById("file-list");
-  box.innerHTML = `<div class="empty">${t(lang).loading}</div>`;
+  box.innerHTML = "<div class=\"empty\">" + t(lang).loading + "</div>";
   try {
     const res = await fetch(FILES_API);
     if (!res.ok) throw new Error(String(res.status));
@@ -108,11 +110,11 @@ async function loadFiles() {
     window.__files = Array.isArray(data) ? data : [];
     renderFiles(window.__files, lang);
   } catch (e) {
-    box.innerHTML = `<div class="empty">${t(lang).error}</div>`;
+    box.innerHTML = "<div class=\"empty\">" + t(lang).error + "</div>";
   }
 }
-document.querySelectorAll(".langs button").forEach((b) => {
-  b.addEventListener("click", () => applyLang(b.dataset.lang));
+document.querySelectorAll(".langs button").forEach(function(b) {
+  b.addEventListener("click", function() { applyLang(b.dataset.lang); });
 });
 applyLang(localStorage.getItem("ltc-lang") || "en");
 loadFiles();
