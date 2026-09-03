@@ -1,7 +1,7 @@
 const OWNER = "MHMahdavi1391";
 const REPO = "VR";
-const FILES_API = "https://api.github.com/repos/" + OWNER + "/" + REPO + "/contents/files";
-const RAW = "https://raw.githubusercontent.com/" + OWNER + "/" + REPO + "/main/files/";
+const FILES_API = "https://api.github.com/repos/MHMahdavi1391/VR/contents/files";
+const RAW = "https://raw.githubusercontent.com/MHMahdavi1391/VR/main/files/";
 
 const I18N = {
   en: {
@@ -24,36 +24,36 @@ const I18N = {
   ru: {
     title: "VR Hub",
     company: "Lumen Technologies Co.",
-    lead: "VR-faily i servisy. Vyberite paket iz spiska i skachayte ego.",
-    services: "VR-servisy",
+    lead: "VR-файлы и сервисы. Выберите пакет из списка и скачайте его.",
+    services: "VR-сервисы",
     s1t: "LTC Quest Helper",
-    s1b: "Pomoshchnik Windows dlya Meta Quest i Android. ADB, fayly, kopii i ustanovka.",
-    s2t: "VR-pakety",
-    s2b: "Zip-faily iz papki files etogo repozitoriya poyavlyayutsya v spiske zagruzok.",
-    files: "Zagruzki",
-    hint: "Vse fayly iz papki files pokazany zdes.",
-    loading: "Zagruzka spiska...",
-    empty: "Poka net faylov. Dobavte zip v papku files.",
-    error: "Ne udalos prochitat papku files.",
-    download: "Skachat",
-    size: "Razmer"
+    s1b: "Помощник Windows для Meta Quest и Android. ADB, файлы, резервные копии и установка.",
+    s2t: "VR-пакеты",
+    s2b: "Zip-файлы из папки files этого репозитория появляются в списке загрузок.",
+    files: "Загрузки",
+    hint: "Все файлы из папки files показаны здесь.",
+    loading: "Загрузка списка...",
+    empty: "Пока нет файлов. Добавьте zip в папку files.",
+    error: "Не удалось прочитать папку files.",
+    download: "Скачать",
+    size: "Размер"
   },
   fa: {
-    title: "Markaz VR",
+    title: "مرکز VR",
     company: "Lumen Technologies Co.",
-    lead: "File-ha va khadamat VR. Az list entekhab konid va download konid.",
-    services: "Khadamat VR",
+    lead: "فایل‌ها و خدمات واقعیت مجازی. از لیست انتخاب کنید و دانلود کنید.",
+    services: "خدمات VR",
     s1t: "LTC Quest Helper",
-    s1b: "Barname Windows baraye Quest va Android. ADB, file manager, backup va nasb.",
-    s2t: "Baste-haye VR",
-    s2b: "Zip-haye poshe files dar list download dide mishavand.",
-    files: "Download-ha",
-    hint: "Har file dar poshe files inja namayesh dade mishavad.",
-    loading: "Dar hale khandane list...",
-    empty: "Hanooz file nist. Zip-ha ra dar poshe files bezarid.",
-    error: "Khandane poshe files momken nashod.",
-    download: "Download",
-    size: "Hajm"
+    s1b: "برنامه ویندوز برای هدست Meta Quest و دستگاه‌های اندروید. ابزار ADB، فایل‌منیجر، بکاپ و نصب.",
+    s2t: "بسته‌های VR",
+    s2b: "فایل‌های زیپ داخل پوشه files همین ریپو در لیست دانلود دیده می‌شوند.",
+    files: "دانلودها",
+    hint: "هر فایلی که در پوشه files باشد اینجا نمایش داده می‌شود.",
+    loading: "در حال خواندن لیست...",
+    empty: "هنوز فایلی نیست. زیپ‌ها را در پوشه files ریپو بگذارید.",
+    error: "خواندن پوشه files ممکن نشد.",
+    download: "دانلود",
+    size: "حجم"
   }
 };
 
