@@ -1,64 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LTC VR | Lumen Technologies Co.</title>
+  <meta name="description" content="LTC VR — official Quest and Android builds by Lumen Technologies Co." />
   <link rel="icon" href="logo.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&family=Vazirmatn:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="bg-effects">
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
-    <div class="grid-overlay"></div>
+  <div class="bg">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="grid"></div>
   </div>
-  <div class="wrap">
-    <header class="top">
-      <div class="brand">
-        <img class="logo" src="logo.jpg" alt="Lumen Technologies Co." />
-        <div>
-          <h1 id="t-title">VR Hub</h1>
-          <p class="sub" id="t-company">Lumen Technologies Co.</p>
-        </div>
-      </div>
-      <a class="site-link" href="https://LT-C.iddns.ir" target="_blank" rel="noopener">LT-C.iddns.ir</a>
-    </header>
-    <section class="hero">
-      <p id="t-lead">VR files and services. Download packages from the list below.</p>
-    </section>
-    <section>
-      <h2 id="t-services">VR services</h2>
-      <div class="cards">
-        <article class="card">
-          <h3 id="t-s1-title">LTC Quest Helper</h3>
-          <p id="t-s1-body">Windows helper for Meta Quest and Android devices. ADB tools, file manager, backup and install.</p>
-        </article>
-        <article class="card">
-          <h3 id="t-s2-title">VR packages</h3>
-          <p id="t-s2-body">Zip files you publish in the files folder appear here for download.</p>
-        </article>
-      </div>
-    </section>
-    <section>
-      <h2 id="t-files">Downloads</h2>
-      <p class="hint" id="t-files-hint">Files from the repository folder named files.</p>
-      <div id="file-list" class="list">
-        <div class="empty" id="t-loading">Loading...</div>
-      </div>
-    </section>
-    <footer>
-      <div class="langs" role="navigation" aria-label="Language">
-        <button type="button" data-lang="en">EN</button>
-        <button type="button" data-lang="ru">RU</button>
-        <button type="button" data-lang="fa">FA</button>
-      </div>
-      <p class="copy">(c) 2026 Lumen Technologies Co. · <a href="https://LT-C.iddns.ir" target="_blank" rel="noopener">LT-C.iddns.ir</a></p>
-    </footer>
-  </div>
+  <nav class="nav">
+    <a class="brand" href="./">
+      <img src="logo.jpg" alt="LTC" />
+      <span>LTC<span class="gold"> VR</span></span>
+    </a>
+    <a class="hub" href="https://LT-C.iddns.ir" target="_blank" rel="noopener">LTC Hub</a>
+  </nav>
+  <header class="hero">
+    <img class="hero-logo" src="logo.jpg" alt="Lumen Technologies Co." />
+    <p class="kicker" id="t-kicker">Lumen Technologies Co.</p>
+    <h1 id="t-title">LTC VR</h1>
+    <p class="lead" id="t-lead"></p>
+    <a class="cta" href="#library" id="t-cta">Library</a>
+  </header>
+  <main id="library" class="library">
+    <div class="lib-head">
+      <h2 id="t-files">Library</h2>
+      <span class="count" id="file-count"></span>
+    </div>
+    <div id="file-list" class="files"></div>
+  </main>
+  <footer>
+    <div class="langs" role="navigation" aria-label="Language">
+      <button type="button" data-lang="fa">FA</button>
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="ru">RU</button>
+    </div>
+    <p>(c) 2026 Lumen Technologies Co.</p>
+  </footer>
   <script src="app.js"></script>
 </body>
 </html>
