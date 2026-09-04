@@ -4,20 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LTC VR | Lumen Technologies Co.</title>
+  <link rel="icon" href="logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="top">
-    <div class="brand">
-      <div class="mark">LTC</div>
-      <div>
-        <h1 id="t-title">VR Hub</h1>
-        <p class="sub" id="t-company">Lumen Technologies Co.</p>
+  <div class="bg-effects">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="grid-overlay"></div>
+  </div>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <img class="logo" src="logo.jpg" alt="Lumen Technologies Co." />
+        <div>
+          <h1 id="t-title">VR Hub</h1>
+          <p class="sub" id="t-company">Lumen Technologies Co.</p>
+        </div>
       </div>
-    </div>
-    <a class="site-link" href="https://LT-C.iddns.ir" target="_blank" rel="noopener">LT-C.iddns.ir</a>
-  </header>
-  <main>
+      <a class="site-link" href="https://LT-C.iddns.ir" target="_blank" rel="noopener">LT-C.iddns.ir</a>
+    </header>
     <section class="hero">
       <p id="t-lead">VR files and services. Download packages from the list below.</p>
     </section>
@@ -38,18 +47,18 @@
       <h2 id="t-files">Downloads</h2>
       <p class="hint" id="t-files-hint">Files from the repository folder named files.</p>
       <div id="file-list" class="list">
-        <div class="empty" id="t-loading">Loading…</div>
+        <div class="empty" id="t-loading">Loading...</div>
       </div>
     </section>
-  </main>
-  <footer>
-    <div class="langs" role="navigation" aria-label="Language">
-      <button type="button" data-lang="en">English</button>
-      <button type="button" data-lang="ru">Русский</button>
-      <button type="button" data-lang="fa">فارسی</button>
-    </div>
-    <p class="copy">© Lumen Technologies Co. · <a href="https://LT-C.iddns.ir" target="_blank" rel="noopener">LT-C.iddns.ir</a></p>
-  </footer>
+    <footer>
+      <div class="langs" role="navigation" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="ru">RU</button>
+        <button type="button" data-lang="fa">FA</button>
+      </div>
+      <p class="copy">(c) 2026 Lumen Technologies Co. · <a href="https://LT-C.iddns.ir" target="_blank" rel="noopener">LT-C.iddns.ir</a></p>
+    </footer>
+  </div>
   <script src="app.js"></script>
 </body>
 </html>
