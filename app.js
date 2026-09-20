@@ -1,133 +1,308 @@
 const FILES_API = "https://api.github.com/repos/MHMahdavi1391/VR/contents/files";
 const RAW = "https://raw.githubusercontent.com/MHMahdavi1391/VR/main/files/";
 
-const I18N = {
-  en: {
-    title: "Lumen Library",
-    kicker: "Lumen Technologies Co.",
-    lead: "Official apps and files from Lumen Technologies Co.",
-    cta: "Open library",
-    apps: "Apps",
-    files: "Files",
-    count: "items",
-    loading: "Loading...",
-    emptyApps: "No app package is published yet.",
-    emptyFiles: "No extra file is published yet.",
-    error: "The library could not be loaded.",
-    download: "Download",
-    size: "Size"
+const CATALOG = {
+  "LTC Central Chat over wifi.apk": {
+    id: "chat",
+    icon: "CHAT",
+    platforms: ["android"],
+    kind: "app",
+    en: { name: "LTC Central Chat", desc: "Local Wi-Fi messenger for teams and rooms. Works without the public internet." },
+    fa: { name: "چت مرکزی LTC", desc: "پیام‌رسان محلی روی وای‌فای برای تیم و اتاق‌ها. بدون نیاز به اینترنت عمومی." },
+    ru: { name: "LTC Central Chat", desc: "Локальный Wi-Fi мессенджер для команд. Работает без интернета." }
   },
-  ru: {
-    title: "Lumen Library",
-    kicker: "Lumen Technologies Co.",
-    lead: "Официальные приложения и файлы LTC.",
-    cta: "Библиотека",
-    apps: "Приложения",
-    files: "Файлы",
-    count: "файлов",
-    loading: "Загрузка...",
-    emptyApps: "Пока нет приложений.",
-    emptyFiles: "Пока нет дополнительных файлов.",
-    error: "Не удалось открыть библиотеку.",
-    download: "Скачать",
-    size: "Размер"
+  "LTC NAS Host.apk": {
+    id: "nas",
+    icon: "NAS",
+    platforms: ["android"],
+    kind: "app",
+    en: { name: "LTC NAS Host", desc: "Turn an Android device into a simple file host for the local network." },
+    fa: { name: "میزبان NAS ال‌تی‌سی", desc: "دستگاه اندروید را به میزبان فایل ساده روی شبکه محلی تبدیل می‌کند." },
+    ru: { name: "LTC NAS Host", desc: "Превращает Android-устройство в простой файловый хост в локальной сети." }
   },
-  fa: {
-    title: "کتابخانه لومن",
-    kicker: "Lumen Technologies Co.",
-    lead: "برنامه‌ها و فایل‌های رسمی شرکت Lumen Technologies Co.",
-    cta: "ورود به کتابخانه",
-    apps: "برنامه‌ها",
-    files: "فایل‌ها",
-    count: "مورد",
-    loading: "در حال بارگذاری...",
-    emptyApps: "هنوز برنامه‌ای منتشر نشده.",
-    emptyFiles: "هنوز فایل اضافه‌ای منتشر نشده.",
-    error: "کتابخانه در دسترس نیست.",
-    download: "دانلود",
-    size: "حجم"
+  "LTC Quest Helper V2.rar": {
+    id: "quest-v2",
+    icon: "QUEST",
+    platforms: ["windows", "quest"],
+    kind: "app",
+    featured: true,
+    en: { name: "LTC Quest Helper V2", desc: "Official helper pack for Meta Quest setup, ADB tools and device checks." },
+    fa: { name: "کمک‌یار Quest نسخه ۲", desc: "بسته رسمی کمکی برای راه‌اندازی Meta Quest، ابزار ADB و بررسی دستگاه." },
+    ru: { name: "LTC Quest Helper V2", desc: "Официальный набор для настройки Meta Quest, ADB и проверки устройства." }
+  },
+  "LTC Quest Helper v1.rar": {
+    id: "quest-v1",
+    icon: "QUEST",
+    platforms: ["windows", "quest"],
+    kind: "app",
+    en: { name: "LTC Quest Helper V1", desc: "Earlier Quest helper package. Prefer V2 when available." },
+    fa: { name: "کمک‌یار Quest نسخه ۱", desc: "نسخه قدیمی‌تر بسته کمکی Quest. در صورت وجود از نسخه ۲ استفاده کنید." },
+    ru: { name: "LTC Quest Helper V1", desc: "Предыдущая версия пакета Quest Helper. Рекомендуется V2." }
   }
 };
 
-function t(lang) { return I18N[lang] || I18N.fa; }
-function isApp(name) {
-  return /\.(apk|aab|ipa|exe|msi)$/i.test(name || "");
-}
-function applyLang(lang) {
-  const d = t(lang);
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "fa" ? "rtl" : "ltr";
-  document.title = d.title + " | Lumen Technologies Co.";
-  document.getElementById("t-title").textContent = d.title;
-  document.getElementById("t-kicker").textContent = d.kicker;
-  document.getElementById("t-lead").textContent = d.lead;
-  document.getElementById("t-cta").textContent = d.cta;
-  document.getElementById("t-apps").textContent = d.apps;
-  document.getElementById("t-files").textContent = d.files;
-  document.querySelectorAll(".langs button").forEach(function (b) {
-    b.classList.toggle("active", b.dataset.lang === lang);
-  });
-  localStorage.setItem("ltc-lang", lang);
-  renderAll(window.__files || [], lang);
-}
+const I18N = {
+  en: {
+    title: "Lumen Store",
+    kicker: "Official apps and files",
+    lead: "The corporate store of Lumen Technologies Co. Download Android apps, Windows tools and Quest helpers from one place.",
+    hub: "LTC Hub",
+    search: "Search apps and files",
+    all: "All",
+    apps: "Apps",
+    files: "Files",
+    android: "Android",
+    windows: "Windows",
+    quest: "Quest",
+    count: "items",
+    loading: "Loading the store…",
+    empty: "Nothing matches this filter.",
+    error: "The store could not be loaded.",
+    get: "Get",
+    download: "Download",
+    size: "Size",
+    platform: "Platform",
+    type: "Type",
+    file: "File",
+    featured: "Featured",
+    close: "Close"
+  },
+  ru: {
+    title: "Lumen Store",
+    kicker: "Официальные приложения",
+    lead: "Корпоративный магазин Lumen Technologies Co. Приложения Android, инструменты Windows и пакеты Quest.",
+    hub: "LTC Hub",
+    search: "Поиск приложений и файлов",
+    all: "Все",
+    apps: "Приложения",
+    files: "Файлы",
+    android: "Android",
+    windows: "Windows",
+    quest: "Quest",
+    count: "шт.",
+    loading: "Загрузка магазина…",
+    empty: "Ничего не найдено.",
+    error: "Не удалось открыть магазин.",
+    get: "Скачать",
+    download: "Скачать",
+    size: "Размер",
+    platform: "Платформа",
+    type: "Тип",
+    file: "Файл",
+    featured: "Рекомендуем",
+    close: "Закрыть"
+  },
+  fa: {
+    title: "فروشگاه لومن",
+    kicker: "برنامه‌ها و فایل‌های رسمی",
+    lead: "فروشگاه شرکتی Lumen Technologies Co. برنامه‌های اندروید، ابزار ویندوز و کمک‌یار Quest در یک جا.",
+    hub: "مرکز LTC",
+    search: "جستجوی برنامه و فایل",
+    all: "همه",
+    apps: "برنامه‌ها",
+    files: "فایل‌ها",
+    android: "اندروید",
+    windows: "ویندوز",
+    quest: "Quest",
+    count: "مورد",
+    loading: "در حال بارگذاری فروشگاه...",
+    empty: "موردی با این فیلتر پیدا نشد.",
+    error: "فروشگاه در دسترس نیست.",
+    get: "دریافت",
+    download: "دانلود",
+    size: "حجم",
+    platform: "پلتفرم",
+    type: "نوع",
+    file: "فایل",
+    featured: "ویژه",
+    close: "بستن"
+  }
+};
+
+let STATE = { lang: "fa", filter: "all", q: "", files: [] };
+
+function t() { return I18N[STATE.lang] || I18N.fa; }
+function loc(meta) { return (meta && meta[STATE.lang]) || (meta && meta.en) || {}; }
+function isAppName(name) { return /\.(apk|aab|ipa|exe|msi)$/i.test(name || "") || /quest helper/i.test(name || ""); }
+function hrefOf(f) { return f.download_url || (RAW + encodeURIComponent(f.name)); }
 function fmtSize(n) {
   if (!n && n !== 0) return "";
   if (n < 1024) return n + " B";
   if (n < 1048576) return (n / 1024).toFixed(1) + " KB";
-  return (n / 1048576).toFixed(2) + " MB";
+  if (n < 1073741824) return (n / 1048576).toFixed(2) + " MB";
+  return (n / 1073741824).toFixed(2) + " GB";
 }
-function extLabel(name) {
-  const p = (name.split(".").pop() || "").toUpperCase();
-  return p || "FILE";
-}
-function prettyName(name) {
+function extLabel(name) { return ((name.split(".").pop() || "FILE").toUpperCase()).slice(0, 5); }
+function prettyFallback(name) {
   return name.replace(/\.(rar|zip|7z|exe|msi|apk|aab|ipa|txt)$/i, "").replace(/[_-]+/g, " ").trim();
 }
-function card(f, d) {
-  const href = f.download_url || (RAW + encodeURIComponent(f.name));
+function enrich(f) {
+  const meta = CATALOG[f.name] || {};
+  const L = loc(meta);
+  const kind = meta.kind || (isAppName(f.name) ? "app" : "file");
+  const platforms = meta.platforms || guessPlatforms(f.name);
+  return {
+    raw: f,
+    name: f.name,
+    title: L.name || prettyFallback(f.name),
+    desc: L.desc || f.name,
+    icon: meta.icon || extLabel(f.name),
+    kind,
+    platforms,
+    featured: !!meta.featured,
+    size: f.size,
+    href: hrefOf(f)
+  };
+}
+function guessPlatforms(name) {
+  const n = (name || "").toLowerCase();
+  const out = [];
+  if (n.endsWith(".apk") || n.endsWith(".aab")) out.push("android");
+  if (n.endsWith(".exe") || n.endsWith(".msi")) out.push("windows");
+  if (n.includes("quest")) out.push("quest", "windows");
+  return out.length ? out : ["files"];
+}
+function matches(item) {
+  const q = STATE.q.trim().toLowerCase();
+  if (q) {
+    const blob = (item.title + " " + item.desc + " " + item.name).toLowerCase();
+    if (!blob.includes(q)) return false;
+  }
+  if (STATE.filter === "all") return true;
+  if (STATE.filter === "apps") return item.kind === "app";
+  if (STATE.filter === "files") return item.kind !== "app";
+  return item.platforms.indexOf(STATE.filter) !== -1;
+}
+function applyChrome() {
+  const d = t();
+  document.documentElement.lang = STATE.lang;
+  document.documentElement.dir = STATE.lang === "fa" ? "rtl" : "ltr";
+  document.title = d.title + " | Lumen Technologies Co.";
+  document.getElementById("t-title").textContent = d.title;
+  document.getElementById("t-kicker").textContent = d.kicker;
+  document.getElementById("t-lead").textContent = d.lead;
+  document.getElementById("t-hub").textContent = d.hub;
+  document.getElementById("search").placeholder = d.search;
+  document.querySelectorAll(".langs button").forEach(function (b) {
+    b.classList.toggle("active", b.dataset.lang === STATE.lang);
+  });
+  const chips = [
+    ["all", d.all],
+    ["apps", d.apps],
+    ["android", d.android],
+    ["windows", d.windows],
+    ["quest", d.quest],
+    ["files", d.files]
+  ];
+  document.getElementById("chips").innerHTML = chips.map(function (c) {
+    return '<button type="button" class="chip' + (STATE.filter === c[0] ? " active" : "") + '" data-filter="' + c[0] + '">' + c[1] + "</button>";
+  }).join("");
+  document.querySelectorAll("#chips .chip").forEach(function (b) {
+    b.addEventListener("click", function () {
+      STATE.filter = b.dataset.filter;
+      render();
+    });
+  });
+}
+function platformLabel(p) {
+  const d = t();
+  if (p === "android") return d.android;
+  if (p === "windows") return d.windows;
+  if (p === "quest") return d.quest;
+  return d.files;
+}
+function cardHTML(item, featured) {
+  const d = t();
+  const pills = item.platforms.map(function (p) { return '<span class="pill">' + platformLabel(p) + "</span>"; }).join("");
+  if (featured) {
+    return (
+      '<article class="featured">' +
+        '<div class="icon">' + item.icon + "</div>" +
+        "<div><span class=\"pill\">" + d.featured + "</span>" +
+        "<h2>" + item.title + "</h2>" +
+        "<p>" + item.desc + "</p>" +
+        '<div class="meta">' + pills + "<span class=\"pill\">" + fmtSize(item.size) + "</span></div></div>" +
+        '<a class="get" href="' + item.href + '" download>' + d.get + "</a>" +
+      "</article>"
+    );
+  }
   return (
-    "<article class=\"file\">" +
-      "<div class=\"kind\">" + extLabel(f.name) + "</div>" +
-      "<div class=\"meta\"><div class=\"name\">" + prettyName(f.name) + "</div>" +
-      "<div class=\"sub\">" + f.name + " · " + d.size + " " + fmtSize(f.size) + "</div></div>" +
-      "<a class=\"dl\" href=\"" + href + "\" download>" + d.download + "</a>" +
+    '<article class="card" data-name="' + encodeURIComponent(item.name) + '">' +
+      '<div class="card-top"><div class="icon-sm">' + item.icon + "</div>" +
+      "<div><h3>" + item.title + "</h3><div class=\"sub\">" + fmtSize(item.size) + " · " + extLabel(item.name) + "</div></div></div>" +
+      '<p class="desc">' + item.desc + "</p>" +
+      '<div class="card-foot"><div>' + pills + "</div>" +
+      '<a class="get" href="' + item.href + '" download onclick="event.stopPropagation()">' + d.get + "</a></div>" +
     "</article>"
   );
 }
-function renderAll(items, lang) {
-  const d = t(lang);
-  const all = (items || []).filter(function (x) {
-    return x.type === "file" && x.name !== "README.txt" && x.name !== ".gitkeep";
+function openSheet(item) {
+  const d = t();
+  const pills = item.platforms.map(function (p) { return platformLabel(p); }).join(" · ");
+  document.getElementById("sheet-body").innerHTML =
+    '<div class="sheet-hero"><div class="icon-sm" style="width:84px;height:84px;border-radius:22px;font-size:13px">' + item.icon + "</div>" +
+    "<div><h2>" + item.title + "</h2><p>" + item.desc + "</p></div></div>" +
+    '<div class="sheet-actions">' +
+      '<a class="get" href="' + item.href + '" download>' + d.download + "</a>" +
+      '<a class="ghost" href="' + item.href + '" target="_blank" rel="noopener">' + item.name + "</a>" +
+    "</div>" +
+    '<div class="facts">' +
+      "<div class=\"fact\"><b>" + d.size + "</b>" + fmtSize(item.size) + "</div>" +
+      "<div class=\"fact\"><b>" + d.platform + "</b>" + pills + "</div>" +
+      "<div class=\"fact\"><b>" + d.type + "</b>" + extLabel(item.name) + "</div>" +
+    "</div>";
+  document.getElementById("sheet").hidden = false;
+}
+function closeSheet() { document.getElementById("sheet").hidden = true; }
+function render() {
+  applyChrome();
+  const d = t();
+  const items = STATE.files.map(enrich).filter(function (x) {
+    return x.name !== "README.txt" && x.name !== ".gitkeep" && x.size > 32;
   });
-  const apps = all.filter(function (x) { return isApp(x.name); });
-  const files = all.filter(function (x) { return !isApp(x.name); });
-  document.getElementById("app-count").textContent = apps.length ? apps.length + " " + d.count : "";
-  document.getElementById("file-count").textContent = files.length ? files.length + " " + d.count : "";
-  document.getElementById("app-list").innerHTML = apps.length
-    ? apps.map(function (f) { return card(f, d); }).join("")
-    : "<div class=\"empty\">" + d.emptyApps + "</div>";
-  document.getElementById("file-list").innerHTML = files.length
-    ? files.map(function (f) { return card(f, d); }).join("")
-    : "<div class=\"empty\">" + d.emptyFiles + "</div>";
+  const featured = items.find(function (x) { return x.featured; }) || items[0];
+  document.getElementById("featured").innerHTML = featured ? cardHTML(featured, true) : "";
+  const list = items.filter(matches);
+  document.getElementById("result-count").textContent = list.length ? list.length + " " + d.count : "";
+  document.getElementById("grid").innerHTML = list.length
+    ? list.map(function (x) { return cardHTML(x, false); }).join("")
+    : '<div class="empty">' + d.empty + "</div>";
+  document.querySelectorAll(".grid-cards .card").forEach(function (el) {
+    el.addEventListener("click", function () {
+      const name = decodeURIComponent(el.dataset.name);
+      const item = items.find(function (x) { return x.name === name; });
+      if (item) openSheet(item);
+    });
+  });
 }
 async function loadFiles() {
-  const lang = localStorage.getItem("ltc-lang") || "fa";
-  document.getElementById("app-list").innerHTML = "<div class=\"empty\">" + t(lang).loading + "</div>";
-  document.getElementById("file-list").innerHTML = "<div class=\"empty\">" + t(lang).loading + "</div>";
+  const d = t();
+  document.getElementById("grid").innerHTML = '<div class="empty">' + d.loading + "</div>";
   try {
     const res = await fetch(FILES_API);
     if (!res.ok) throw new Error(String(res.status));
     const data = await res.json();
-    window.__files = Array.isArray(data) ? data : [];
-    renderAll(window.__files, lang);
+    STATE.files = (Array.isArray(data) ? data : []).filter(function (x) { return x.type === "file"; });
+    render();
   } catch (e) {
-    const msg = "<div class=\"empty\">" + t(lang).error + "</div>";
-    document.getElementById("app-list").innerHTML = msg;
-    document.getElementById("file-list").innerHTML = msg;
+    document.getElementById("grid").innerHTML = '<div class="empty">' + t().error + "</div>";
   }
 }
 document.querySelectorAll(".langs button").forEach(function (b) {
-  b.addEventListener("click", function () { applyLang(b.dataset.lang); });
+  b.addEventListener("click", function () {
+    STATE.lang = b.dataset.lang;
+    localStorage.setItem("ltc-lang", STATE.lang);
+    render();
+  });
 });
-applyLang(localStorage.getItem("ltc-lang") || "fa");
+document.getElementById("search").addEventListener("input", function (e) {
+  STATE.q = e.target.value || "";
+  render();
+});
+document.getElementById("sheet").addEventListener("click", function (e) {
+  if (e.target.hasAttribute("data-close")) closeSheet();
+});
+document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeSheet(); });
+STATE.lang = localStorage.getItem("ltc-lang") || "fa";
+applyChrome();
 loadFiles();
