@@ -20,7 +20,7 @@ function prettyName(name) { return name.replace(/\.[^.]+$/, "").replace(/[_-]+/g
 function enrich(f) {
   return { name: f.name, title: prettyName(f.name), format: extLabel(f.name), size: f.size, href: hrefOf(f) };
 }
-function usable(x) { return x.name !== "README.txt" && x.name !== ".gitkeep" && x.size > 32; }
+function usable(x) { return x.name !== "README.txt" && x.name !== ".gitkeep"; }
 function matches(item) {
   const q = STATE.q.trim().toLowerCase();
   if (!q) return true;
