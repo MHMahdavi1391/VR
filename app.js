@@ -1,9 +1,9 @@
 const FILES_API = "https://api.github.com/repos/MHMahdavi1391/VR/contents/files";
 const RAW = "https://raw.githubusercontent.com/MHMahdavi1391/VR/main/files/";
 const I18N = {
-  en: { title: "FRAME VR", lead: "Official files of FRAME Industries", hub: "FRAME Hub", search: "Search files", count: "items", loading: "Loading…", empty: "No files found.", error: "The store could not be loaded.", get: "Download", size: "Size", format: "Format" },
-  ru: { title: "FRAME VR", lead: "Официальные файлы FRAME Industries", hub: "FRAME Hub", search: "Поиск файлов", count: "шт.", loading: "Загрузка…", empty: "Файлы не найдены.", error: "Не удалось открыть магазин.", get: "Скачать", size: "Размер", format: "Формат" },
-  fa: { title: "کتابخانه VR", lead: "فایل‌های رسمی FRAME Industries", hub: "مرکز LTC", search: "جستجوی فایل", count: "مورد", loading: "در حال بارگذاری...", empty: "فایلی پیدا نشد.", error: "فروشگاه در دسترس نیست.", get: "دانلود", size: "حجم", format: "فرمت" }
+  en: { title: "FRAME VR", lead: "VR library and tools by FRAME Industries for Quest and Android.", hub: "FRAME Hub", search: "Search files", count: "items", loading: "Loading…", empty: "No files found.", error: "The store could not be loaded.", get: "Download", size: "Size", format: "Format" },
+  ru: { title: "FRAME VR", lead: "Библиотека VR и инструменты FRAME Industries для Quest и Android.", hub: "FRAME Hub", search: "Поиск файлов", count: "шт.", loading: "Загрузка…", empty: "Файлы не найдены.", error: "Не удалось открыть магазин.", get: "Скачать", size: "Размер", format: "Формат" },
+  fa: { title: "کتابخانه VR | FRAME", lead: "کتابخانه و ابزارهای واقعیت مجازی FRAME Industries برای Quest و اندروید.", hub: "هاب FRAME", search: "جستجوی فایل", count: "مورد", loading: "در حال بارگذاری...", empty: "فایلی پیدا نشد.", error: "فروشگاه در دسترس نیست.", get: "دانلود", size: "حجم", format: "فرمت" }
 };
 let STATE = { lang: "fa", q: "", files: [] };
 function t() { return I18N[STATE.lang] || I18N.fa; }
