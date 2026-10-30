@@ -1,9 +1,9 @@
 const FILES_API = "https://api.github.com/repos/MHMahdavi1391/VR/contents/files";
 const RAW = "https://raw.githubusercontent.com/MHMahdavi1391/VR/main/files/";
 const I18N = {
-  en: { title: "Lumen Store", lead: "Official files of Lumen Technologies Co.", hub: "LTC Hub", search: "Search files", count: "items", loading: "Loading…", empty: "No files found.", error: "The store could not be loaded.", get: "Download", size: "Size", format: "Format" },
-  ru: { title: "Lumen Store", lead: "Официальные файлы Lumen Technologies Co.", hub: "LTC Hub", search: "Поиск файлов", count: "шт.", loading: "Загрузка…", empty: "Файлы не найдены.", error: "Не удалось открыть магазин.", get: "Скачать", size: "Размер", format: "Формат" },
-  fa: { title: "فروشگاه لومن", lead: "فایل‌های رسمی Lumen Technologies Co.", hub: "مرکز LTC", search: "جستجوی فایل", count: "مورد", loading: "در حال بارگذاری...", empty: "فایلی پیدا نشد.", error: "فروشگاه در دسترس نیست.", get: "دانلود", size: "حجم", format: "فرمت" }
+  en: { title: "FRAME VR", lead: "Official files of FRAME Industries", hub: "FRAME Hub", search: "Search files", count: "items", loading: "Loading…", empty: "No files found.", error: "The store could not be loaded.", get: "Download", size: "Size", format: "Format" },
+  ru: { title: "FRAME VR", lead: "Официальные файлы FRAME Industries", hub: "FRAME Hub", search: "Поиск файлов", count: "шт.", loading: "Загрузка…", empty: "Файлы не найдены.", error: "Не удалось открыть магазин.", get: "Скачать", size: "Размер", format: "Формат" },
+  fa: { title: "کتابخانه VR", lead: "فایل‌های رسمی FRAME Industries", hub: "مرکز LTC", search: "جستجوی فایل", count: "مورد", loading: "در حال بارگذاری...", empty: "فایلی پیدا نشد.", error: "فروشگاه در دسترس نیست.", get: "دانلود", size: "حجم", format: "فرمت" }
 };
 let STATE = { lang: "fa", q: "", files: [] };
 function t() { return I18N[STATE.lang] || I18N.fa; }
@@ -30,7 +30,7 @@ function applyChrome() {
   const d = t();
   document.documentElement.lang = STATE.lang;
   document.documentElement.dir = STATE.lang === "fa" ? "rtl" : "ltr";
-  document.title = d.title + " | Lumen Technologies Co.";
+  document.title = d.title + " | FRAME Industries";
   document.getElementById("t-title").textContent = d.title;
   document.getElementById("t-lead").textContent = d.lead;
   document.getElementById("t-hub").textContent = d.hub;
